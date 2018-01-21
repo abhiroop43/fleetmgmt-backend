@@ -17,7 +17,7 @@ namespace FleetMgmt.IdentityServer
     {
         public static void Main(string[] args)
         {
-            Console.Title = "IdentityServerWithAspNetIdentity";
+            Console.Title = "Fleet Management Server";
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()

@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+identityserver4_log.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
