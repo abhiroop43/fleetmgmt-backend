@@ -1,4 +1,4 @@
-﻿using IdentityServerWithAspNetIdentity.Models;
+﻿using FleetMgmt.IdentityServer.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
