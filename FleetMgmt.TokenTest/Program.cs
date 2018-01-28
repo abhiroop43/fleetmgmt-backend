@@ -27,7 +27,7 @@ namespace FleetMgmt.TokenTest
 //            var tokenResponse = await tokenClient.RequestClientCredentialsAsync("fleetMgmt");
 
             var tokenClient = new TokenClient(disco.TokenEndpoint, "ro.client", "secret");
-            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync("alice", "password", "fleetMgmt");
+            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync("test@test.com", "Abcd@1234", "fleetMgmt");
 
             if (tokenResponse.IsError)
             {

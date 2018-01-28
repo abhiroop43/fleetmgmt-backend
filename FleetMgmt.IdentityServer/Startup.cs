@@ -33,6 +33,9 @@ namespace FleetMgmt.IdentityServer
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+            // Add CORS support
+            services.AddCors();
+
             services.AddMvc();
 
             // configure identity server with in-memory stores, keys, clients and resources
@@ -78,6 +81,12 @@ namespace FleetMgmt.IdentityServer
             }
 
             app.UseStaticFiles();
+
+            // Use CORS
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
 
             // app.UseAuthentication(); // not needed, since UseIdentityServer adds the authentication middleware
             app.UseIdentityServer();
