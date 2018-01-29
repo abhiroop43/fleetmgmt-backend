@@ -34,7 +34,18 @@ namespace FleetMgmt.IdentityServer
             services.AddTransient<IEmailSender, EmailSender>();
 
             // Add CORS support
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("default", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowCredentials()
+                        //.WithOrigins("http://localhost:4200", "chrome-extension://eipdnjedkpcnlmmdfdkgfpljanehloah")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
 
             services.AddMvc();
 
@@ -83,10 +94,7 @@ namespace FleetMgmt.IdentityServer
             app.UseStaticFiles();
 
             // Use CORS
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod());
+            app.UseCors("default");
 
             // app.UseAuthentication(); // not needed, since UseIdentityServer adds the authentication middleware
             app.UseIdentityServer();

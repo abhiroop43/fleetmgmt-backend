@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 
@@ -56,9 +57,9 @@ namespace FleetMgmt.IdentityServer
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { "fleetMgmt" }
+                    AllowedScopes = { "fleetMgmt" },
+                    AllowOfflineAccess = true
                 }
-
             };
         }
 
