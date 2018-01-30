@@ -262,13 +262,13 @@ namespace FleetMgmt.IdentityServer.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterUser(RegisterViewModel model)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterViewModel model)
         {
+            IdentityResult result = new IdentityResult();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -285,7 +285,7 @@ namespace FleetMgmt.IdentityServer.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return BadRequest(model);
+            return BadRequest("User creation failed");
         }
 
         [HttpGet]
