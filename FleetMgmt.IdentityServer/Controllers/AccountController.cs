@@ -264,11 +264,10 @@ namespace FleetMgmt.IdentityServer.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterViewModel model)
         {
-            IdentityResult result = new IdentityResult();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -281,7 +280,11 @@ namespace FleetMgmt.IdentityServer.Controllers
                     _logger.LogInformation("User created a new account with password.");
                     return Ok("User registered");
                 }
-                AddErrors(result);
+//                AddErrors(result);
+                foreach (var error in result.Errors)
+                {
+                    _logger.LogError($"{error.Code}: {error.Description}");
+                }
             }
 
             // If we got this far, something failed, redisplay form
