@@ -50,7 +50,7 @@ namespace FleetMgmt.IdentityServer
                     policy
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowAnyOrigin()
+                        .WithOrigins("http://localhost:4200")
                         .AllowCredentials();
                 });
             });
@@ -88,6 +88,9 @@ namespace FleetMgmt.IdentityServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Use CORS
+            app.UseCors("default");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -100,9 +103,6 @@ namespace FleetMgmt.IdentityServer
             }
 
             app.UseStaticFiles();
-
-            // Use CORS
-            app.UseCors("default");
 
             // app.UseAuthentication(); // not needed, since UseIdentityServer adds the authentication middleware
             app.UseIdentityServer();

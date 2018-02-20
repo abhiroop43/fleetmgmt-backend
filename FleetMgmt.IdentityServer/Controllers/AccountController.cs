@@ -278,13 +278,14 @@ namespace FleetMgmt.IdentityServer.Controllers
 
 //                    await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return Ok("User registered");
+                    return Ok(result);
                 }
 //                AddErrors(result);
                 foreach (var error in result.Errors)
                 {
                     _logger.LogError($"{error.Code}: {error.Description}");
                 }
+                return BadRequest(result);
             }
 
             // If we got this far, something failed, redisplay form
