@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FleetMgmt.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FleetMgmt.Data
 {
-    public class FmDbContext
+    public class FmDbContext : DbContext
     {
+        public FmDbContext(DbContextOptions<FmDbContext> options) : base(options)
+        {
+
+        }
+
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Driver> Drivers { get; set; }
+        public DbSet<Trip> Trips { get; set; }
+        public DbSet<Accident> Accidents { get; set; }
     }
 }

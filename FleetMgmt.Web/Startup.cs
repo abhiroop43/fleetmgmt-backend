@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FleetMgmt.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FleetMgmt.Web
 {
@@ -32,7 +28,15 @@ namespace FleetMgmt.Web
                         .AllowAnyMethod();
                 });
             });
-//            services.AddMvc();
+
+            // Configure DbContext
+            services
+                .AddDbContext<FmDbContext>(options =>
+                   options
+                   .UseSqlServer(Configuration
+                       .GetConnectionString("DefaultConnection")));
+
+            //            services.AddMvc();
             services.AddMvcCore()
                 .AddAuthorization()
                 .AddJsonFormatters();
