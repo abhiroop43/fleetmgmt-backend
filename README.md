@@ -7,6 +7,7 @@ Uses **ASP.NET Core v2** and **IdentityServer4** for authentication.
 2. To run the identity server navigate to the **FleetMgmt.IdentityServer** directory and run the commands:
     
     *dotnet ef database update --context ConfigurationDbContext*
+    
     *dotnet run /seed*
     
    The **seed** flag updates the database with the clients, the Identity resources and the API resources.
