@@ -1,4 +1,7 @@
-﻿using FleetMgmt.Data;
+﻿using AutoMapper;
+using FleetMgmt.Data;
+using FleetMgmt.Repository.Implementations;
+using FleetMgmt.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -37,9 +40,12 @@ namespace FleetMgmt.Web
                        .GetConnectionString("DefaultConnection")));
 
             //            services.AddMvc();
+            services.AddAutoMapper();
             services.AddMvcCore()
                 .AddAuthorization()
                 .AddJsonFormatters();
+
+            services.AddTransient<IVehicleRepository, VehicleRepository>();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>

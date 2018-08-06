@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FleetMgmt.Data\FleetMgmt.Data.csproj" />
+    <ProjectReference Include="..\FleetMgmt.Dto\FleetMgmt.Dto.csproj" />
+  </ItemGroup>
+
 </Project>

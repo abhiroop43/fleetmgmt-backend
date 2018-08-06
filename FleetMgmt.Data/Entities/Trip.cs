@@ -24,5 +24,6 @@ namespace FleetMgmt.Data.Entities
 
         public Vehicle Vehicle { get; set; }
         public Driver Driver { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

@@ -23,5 +23,7 @@ namespace FleetMgmt.Data.Entities
         public string LicenseNumber { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
+
+        public bool IsActive { get; set; } = true;
     }
 }

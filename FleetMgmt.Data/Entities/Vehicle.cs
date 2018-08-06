@@ -29,5 +29,7 @@ namespace FleetMgmt.Data.Entities
         public string EngineNumber { get; set; }
 
         public string ChassisNumber { get; set; }
+
+        public bool IsActive { get; set; } = true;
     }
 }
