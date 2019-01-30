@@ -11,7 +11,7 @@ namespace FleetMgmt.Data.Entities
         public Guid Id { get; set; }
 
         [Required]
-        public int Length { get; set; }
+        public long Length { get; set; }
 
         [Required]
         public Guid VehicleId { get; set; }

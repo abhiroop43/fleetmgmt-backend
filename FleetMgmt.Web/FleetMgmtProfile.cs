@@ -13,6 +13,12 @@ namespace FleetMgmt.Web
 
             CreateMap<Driver, DriverDto>();
             CreateMap<DriverDto, Driver>();
+
+            CreateMap<Accident, AccidentDto>();
+            CreateMap<AccidentDto, Accident>();
+
+            CreateMap<Trip, TripDto>();
+            CreateMap<TripDto, Trip>();
         }
     }
 }

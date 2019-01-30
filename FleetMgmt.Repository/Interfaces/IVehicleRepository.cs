@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FleetMgmt.Data.Entities;
-using FleetMgmt.Dto;
 
 namespace FleetMgmt.Repository.Interfaces
 {

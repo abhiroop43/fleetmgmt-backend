@@ -31,5 +31,7 @@ namespace FleetMgmt.Data.Entities
         public string ChassisNumber { get; set; }
 
         public bool IsActive { get; set; } = true;
+
+        public long? KilometersDriven { get; set; }
     }
 }
