@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace FleetMgmt.Dto
 {
@@ -29,5 +27,7 @@ namespace FleetMgmt.Dto
 
         public string ChassisNumber { get; set; }
         public bool IsActive { get; set; }
+
+        public long? KilometersDriven { get; set; }
     }
 }
