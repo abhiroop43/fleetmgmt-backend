@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using FleetMgmt.Data;
 using FleetMgmt.Repository.Implementations;
 using FleetMgmt.Repository.Interfaces;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Binder;
 
 namespace FleetMgmt.Web
 {
@@ -26,7 +29,7 @@ namespace FleetMgmt.Web
             {
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("http://localhost:4200")
+                    policy.WithOrigins(Configuration.GetSection("CORSOrigins").Get<string[]>())
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -46,14 +49,14 @@ namespace FleetMgmt.Web
                 .AddJsonFormatters();
 
             services.AddTransient<IVehicleRepository, VehicleRepository>();
+            services.AddTransient<IDriverRepository, DriverRepository>();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = "http://localhost:5000";
-                    options.RequireHttpsMetadata = false;
-
-                    options.ApiName = "fleetMgmt";
+                    options.Authority = Configuration.GetSection("AuthAuthority").Value;
+                    options.RequireHttpsMetadata = Convert.ToBoolean(Configuration.GetSection("AuthRequireHttps").Value);
+                    options.ApiName = Configuration.GetSection("AuthApiName").Value;
                 });
         }
 

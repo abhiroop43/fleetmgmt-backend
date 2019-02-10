@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FleetMgmt.Repository.Implementations
 {
-    class DriverRepository : IDriverRepository
+    public class DriverRepository : IDriverRepository
     {
         private readonly FmDbContext _dbContext;
 

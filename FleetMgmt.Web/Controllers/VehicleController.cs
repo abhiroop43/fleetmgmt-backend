@@ -47,7 +47,7 @@ namespace FleetMgmt.Web.Controllers
         public async Task<ActionResult> AddNewVehicle([FromBody] VehicleDto newvehicle)
         {
             var vehicle = _mapper.Map<Vehicle>(newvehicle);
-
+            vehicle.Id = Guid.NewGuid();
             return Ok(await _vehicleRepository.AddVehicle(vehicle));
         }
 
@@ -61,7 +61,7 @@ namespace FleetMgmt.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("deletevehicle")]
+        [Route("deletevehicle/{id}")]
         public async Task<ActionResult> DeleteVehicle(Guid id)
         {
             return Ok(await _vehicleRepository.RemoveVehicle(id));
