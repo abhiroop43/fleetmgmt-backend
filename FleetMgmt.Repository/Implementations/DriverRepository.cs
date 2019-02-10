@@ -35,6 +35,11 @@ namespace FleetMgmt.Repository.Implementations
             return await _dbContext.Drivers.ToListAsync();
         }
 
+        public async Task<List<Trip>> GetAllTripsByDriver(Guid driverId)
+        {
+            return await _dbContext.Trips.Where(t => t.DiverId == driverId).ToListAsync();
+        }
+
         public async Task<List<Vehicle>> GetAllVehiclesDrivenByDriver(Guid driverId)
         {
             return await _dbContext.Trips.Where(t => t.DiverId == driverId).Select(t => t.Vehicle).ToListAsync();
