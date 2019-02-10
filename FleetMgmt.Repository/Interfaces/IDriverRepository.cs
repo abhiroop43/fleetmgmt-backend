@@ -7,9 +7,9 @@ namespace FleetMgmt.Repository.Interfaces
 {
     public interface IDriverRepository
     {
-        Task<int> AddDriver(Accident newAccident);
+        Task<int> AddDriver(Driver newDriver);
 
-        Task<int> UpdateDriver(Guid driverId, Driver updatedAccidentInfo);
+        Task<int> UpdateDriver(Guid driverId, Driver updatedDriverInfo);
 
         Task<int> RemoveDriver(Guid driverId);
 
@@ -17,7 +17,7 @@ namespace FleetMgmt.Repository.Interfaces
 
         Task<Driver> GetDriverById(Guid driverId);
 
-        Task<decimal> GetTotalFinesOfDriver(Guid driverId);
+        Task<decimal?> GetTotalFinesOfDriver(Guid driverId);
 
         Task<List<Vehicle>> GetAllVehiclesDrivenByDriver(Guid driverId);
 
