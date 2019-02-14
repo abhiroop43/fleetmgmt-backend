@@ -7,9 +7,9 @@ namespace FleetMgmt.Repository.Interfaces
 {
     public interface ITripRepository
     {
-        Task<int> AddTrip(Vehicle newTrip);
+        Task<int> AddTrip(Trip newTrip);
 
-        Task<int> UpdateTrip(Guid tripId, Vehicle updatedTripInfo);
+        Task<int> UpdateTrip(Guid tripId, Trip updatedTripInfo);
 
         Task<int> RemoveTrip(Guid tripId);
 

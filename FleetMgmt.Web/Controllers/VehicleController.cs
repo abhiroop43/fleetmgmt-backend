@@ -66,5 +66,11 @@ namespace FleetMgmt.Web.Controllers
         {
             return Ok(await _vehicleRepository.RemoveVehicle(id));
         }
+
+        [Route("getallaccidentsofvehicle/{id}")]
+        public async Task<ActionResult> GetAllAccidentsOfVehicle(Guid id)
+        {
+            return Ok(await _vehicleRepository.GetAllAccidentsForVehicle(id));
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FleetMgmt.Data;
 using FleetMgmt.Data.Entities;
@@ -21,9 +22,14 @@ namespace FleetMgmt.Repository.Implementations
             return await SaveChanges();
         }
 
+        public async Task<List<Accident>> GetAllAccidentsForVehicle(Guid vehicleId)
+        {
+            return await _dbContext.Accidents.Where(a => a.Trip.VehicleId == vehicleId).ToListAsync();
+        }
+
         public async Task<List<Vehicle>> GetAllVehicles()
         {
-            return await _dbContext.Vehicles.ToListAsync();
+            return await _dbContext.Vehicles.Where(v => v.IsActive).ToListAsync();
         }
 
         public async Task<Vehicle> GetVehicleById(Guid vehicleId)

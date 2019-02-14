@@ -13,8 +13,6 @@ namespace FleetMgmt.Repository.Interfaces
 
         Task<int> RemoveAccident(Guid accidentId);
 
-        Task<List<Accident>> GetAllAccidentsForDriver(Guid driverId);
-
         Task<List<Accident>> GetAllAccidentsForVehicle(Guid vehicleId);
 
         Task<Accident> GetAccidentById(Guid accidentId);

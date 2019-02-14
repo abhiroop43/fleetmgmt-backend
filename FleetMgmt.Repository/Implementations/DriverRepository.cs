@@ -22,7 +22,7 @@ namespace FleetMgmt.Repository.Implementations
         {
             _dbContext.Drivers.Add(newDriver);
 
-            return await _dbContext.SaveChangesAsync();
+            return await SaveChanges();
         }
 
         public async Task<List<Accident>> GetAllAccidentsByDriver(Guid driverId)
@@ -32,7 +32,7 @@ namespace FleetMgmt.Repository.Implementations
 
         public async Task<List<Driver>> GetAllDrivers()
         {
-            return await _dbContext.Drivers.ToListAsync();
+            return await _dbContext.Drivers.Where(d => d.IsActive).ToListAsync();
         }
 
         public async Task<List<Trip>> GetAllTripsByDriver(Guid driverId)
@@ -72,7 +72,7 @@ namespace FleetMgmt.Repository.Implementations
                 _dbContext.Drivers.Update(driver);
             }
 
-            return await _dbContext.SaveChangesAsync();
+            return await SaveChanges();
         }
 
         public async Task<int> UpdateDriver(Guid driverId, Driver updatedDriverInfo)
@@ -87,6 +87,11 @@ namespace FleetMgmt.Repository.Implementations
                 _dbContext.Drivers.Update(driver);
                 //_dbContext.Entry(driver).State = EntityState.Modified;
             }
+            return await SaveChanges();
+        }
+
+        private async Task<int> SaveChanges()
+        {
             return await _dbContext.SaveChangesAsync();
         }
     }

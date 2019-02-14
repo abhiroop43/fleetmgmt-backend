@@ -43,13 +43,16 @@ namespace FleetMgmt.Web
                        .GetConnectionString("DefaultConnection")));
 
             //            services.AddMvc();
-            services.AddAutoMapper();
-            services.AddMvcCore()
+            services
+                .AddAutoMapper()
+                .AddMvcCore()
                 .AddAuthorization()
                 .AddJsonFormatters();
 
-            services.AddTransient<IVehicleRepository, VehicleRepository>();
-            services.AddTransient<IDriverRepository, DriverRepository>();
+            services
+                .AddTransient<IVehicleRepository, VehicleRepository>()
+                .AddTransient<IDriverRepository, DriverRepository>()
+                .AddTransient<ITripRepository, TripRepository>();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
