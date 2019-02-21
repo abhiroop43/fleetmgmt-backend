@@ -52,7 +52,8 @@ namespace FleetMgmt.Web
             services
                 .AddTransient<IVehicleRepository, VehicleRepository>()
                 .AddTransient<IDriverRepository, DriverRepository>()
-                .AddTransient<ITripRepository, TripRepository>();
+                .AddTransient<ITripRepository, TripRepository>()
+                .AddTransient<IAccidentRepository, AccidentRepository>();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
