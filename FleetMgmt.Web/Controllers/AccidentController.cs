@@ -11,6 +11,15 @@ namespace FleetMgmt.Web.Controllers
     [Route("api/Accident")]
     public class AccidentController : Controller
     {
+        public AccidentController()
+        {
+            
+        }
         //// Business Logic: An accident can only happen if the driver is driving the specified vehicle during that time
+        [HttpGet]
+        public async Task<IActionResult> GetAllAccidents()
+        {
+            return Ok();
+        }
     }
 }
