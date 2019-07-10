@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.TokenTest", "FleetMgmt.TokenTest\FleetMgmt.TokenTest.csproj", "{1FDE29CD-E7AF-44FD-82A5-D22C1238E16A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.IdentityServer", "FleetMgmt.IdentityServer\FleetMgmt.IdentityServer.csproj", "{8C544371-2D50-4C89-AB9B-0E897DA16848}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.Web", "FleetMgmt.Web\FleetMgmt.Web.csproj", "{3313F129-047D-4694-825F-72702D9AAE2A}"
 EndProject
@@ -14,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.Data", "FleetMgmt.Data\FleetMgmt.Data.csproj", "{BAA37AA3-A309-485A-B403-F77A658D4418}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.Repository", "FleetMgmt.Repository\FleetMgmt.Repository.csproj", "{B2F9A35C-66A4-44E7-AE45-35B1CEBC0F44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.IdentityServer", "FleetMgmt.IdentityServer\FleetMgmt.IdentityServer.csproj", "{B71314C9-3580-4795-8283-C55F4EDCBD93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +25,6 @@ Global
 		{1FDE29CD-E7AF-44FD-82A5-D22C1238E16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FDE29CD-E7AF-44FD-82A5-D22C1238E16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FDE29CD-E7AF-44FD-82A5-D22C1238E16A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C544371-2D50-4C89-AB9B-0E897DA16848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C544371-2D50-4C89-AB9B-0E897DA16848}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C544371-2D50-4C89-AB9B-0E897DA16848}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C544371-2D50-4C89-AB9B-0E897DA16848}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3313F129-047D-4694-825F-72702D9AAE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3313F129-047D-4694-825F-72702D9AAE2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3313F129-047D-4694-825F-72702D9AAE2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{B2F9A35C-66A4-44E7-AE45-35B1CEBC0F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2F9A35C-66A4-44E7-AE45-35B1CEBC0F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2F9A35C-66A4-44E7-AE45-35B1CEBC0F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B71314C9-3580-4795-8283-C55F4EDCBD93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B71314C9-3580-4795-8283-C55F4EDCBD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B71314C9-3580-4795-8283-C55F4EDCBD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B71314C9-3580-4795-8283-C55F4EDCBD93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
