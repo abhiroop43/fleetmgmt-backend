@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.Repository", "Fle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.IdentityServer", "FleetMgmt.IdentityServer\FleetMgmt.IdentityServer.csproj", "{B71314C9-3580-4795-8283-C55F4EDCBD93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetMgmt.Test", "FleetMgmt.Test\FleetMgmt.Test.csproj", "{2356F508-82AC-4595-8F27-6A6D6599169F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B71314C9-3580-4795-8283-C55F4EDCBD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B71314C9-3580-4795-8283-C55F4EDCBD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B71314C9-3580-4795-8283-C55F4EDCBD93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2356F508-82AC-4595-8F27-6A6D6599169F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2356F508-82AC-4595-8F27-6A6D6599169F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2356F508-82AC-4595-8F27-6A6D6599169F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2356F508-82AC-4595-8F27-6A6D6599169F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
