@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  fleetmgmt.identityserver:
+    image: ${DOCKER_REGISTRY-}fleetmgmtidentityserver
+    build:
+      context: .
+      dockerfile: FleetMgmt.IdentityServer/Dockerfile
+    ports:
+        - "8000:80"
+    depends_on:
+        - sqlserver
+
+  sqlserver:  
+    image: "mcr.microsoft.com/mssql/server"
+    hostname: 'sqlserver'  
+    environment:  
+      ACCEPT_EULA: Y  
+      SA_PASSWORD: "Abcd@1234"

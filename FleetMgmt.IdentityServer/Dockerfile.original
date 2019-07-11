@@ -4,16 +4,20 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
-COPY ["FleetMgmt.IdentityServer/FleetMgmt.IdentityServer.csproj", "FleetMgmt.IdentityServer/"]
-RUN dotnet restore "FleetMgmt.IdentityServer/FleetMgmt.IdentityServer.csproj"
+COPY ["FleetMgmt.IdentityServer.csproj", "."]
+RUN dotnet restore "FleetMgmt.IdentityServer.csproj"
 COPY . .
-WORKDIR "/src/FleetMgmt.IdentityServer"
+# WORKDIR "/src/FleetMgmt.IdentityServer"
 RUN dotnet build "FleetMgmt.IdentityServer.csproj" -c Release -o /app
 
 FROM build AS publish
 RUN dotnet publish "FleetMgmt.IdentityServer.csproj" -c Release -o /app
+COPY entrypoint.sh /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+# RUN dotnet ef database update --context ConfigurationDbContext
 ENTRYPOINT ["dotnet", "FleetMgmt.IdentityServer.dll", "/seed"]
+# RUN chmod +x ./entrypoint.sh
+# ENTRYPOINT ["./entrypoint.sh"]
