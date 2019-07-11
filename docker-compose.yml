@@ -11,9 +11,15 @@ services:
     depends_on:
         - sqlserver
 
-  sqlserver:  
+  sqlserver:
     image: "mcr.microsoft.com/mssql/server"
-    hostname: 'sqlserver'  
-    environment:  
-      ACCEPT_EULA: Y  
+    hostname: 'sqlserver'
+    environment:
+      ACCEPT_EULA: Y
       SA_PASSWORD: "Abcd@1234"
+    ports:
+      - "1433:1433"
+    expose:
+      - "1433"
+    volumes:
+      - ./FleetMgmt.IdentityServer/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql

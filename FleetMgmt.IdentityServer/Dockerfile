@@ -17,6 +17,6 @@ RUN dotnet publish "FleetMgmt.IdentityServer.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-# ENTRYPOINT ["dotnet", "FleetMgmt.IdentityServer.dll", "/seed"]
-RUN chmod +x ./entrypoint.sh
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["dotnet", "FleetMgmt.IdentityServer.dll", "/seed"]
+# RUN chmod +x ./entrypoint.sh
+# ENTRYPOINT ["./entrypoint.sh"]

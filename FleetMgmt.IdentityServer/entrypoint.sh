@@ -1,5 +1,4 @@
-﻿ #!/usr/bin/env bash
-
+#!/bin/bash
 set -e
 run_cmd="dotnet FleetMgmt.IdentityServer.dll --server.urls http://*:80"
 
