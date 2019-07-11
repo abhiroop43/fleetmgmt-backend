@@ -28,7 +28,7 @@ namespace FleetMgmt.Test
             var driverId = new Guid();
             var retVal = await AddSampleDriver(driverId);
 
-            Assert.Equal(1,retVal);
+            Assert.Equal(1, retVal);
         }
 
         [Fact]
@@ -45,17 +45,22 @@ namespace FleetMgmt.Test
         public async void GetDriver()
         {
             var driverId = new Guid("83034cec-4785-4327-befe-b78b50f464bf");
-            _ = await AddSampleDriver(driverId);
+            var driverAdded = await AddSampleDriver(driverId);
 
-            var driver = await _driverRepository.GetDriverById(driverId);
+            if (driverAdded > 0)
+            {
+                var driver = await _driverRepository.GetDriverById(driverId);
 
-            Assert.Equal("John", driver.FirstName);
+                Assert.Equal("John", driver.FirstName);
+            }
+            throw new Exception("Test record was not added");
         }
 
         private async Task<int> AddSampleDriver(Guid id)
         {
-            var driver = new Driver{ 
-                Id=id,
+            var driver = new Driver
+            {
+                Id = id,
                 FirstName = "John",
                 LastName = "Doe",
                 IsActive = true,
@@ -69,8 +74,9 @@ namespace FleetMgmt.Test
         {
             for (int i = 0; i < 10; i++)
             {
-                var driver = new Driver{ 
-                    Id=Guid.NewGuid(),
+                var driver = new Driver
+                {
+                    Id = Guid.NewGuid(),
                     FirstName = "John " + i,
                     LastName = "Doe " + i,
                     IsActive = true,
