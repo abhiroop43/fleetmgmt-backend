@@ -7,6 +7,8 @@ namespace FleetMgmt.Repository.Interfaces
 {
     public interface IAccidentRepository
     {
+        Task<List<Accident>> GetAllAccidents();
+
         Task<int> AddAccident(Accident newAccident);
 
         Task<int> UpdateAccident(Guid accidentId, Accident updatedAccidentInfo);

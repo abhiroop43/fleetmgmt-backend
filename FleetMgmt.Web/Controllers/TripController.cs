@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using FleetMgmt.Data.Entities;
 using FleetMgmt.Dto;
+using FleetMgmt.Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleetMgmt.Web.Controllers
@@ -14,39 +15,72 @@ namespace FleetMgmt.Web.Controllers
     [Authorize]
     public class TripController : Controller
     {
-        //// Busines Logic: 
-        /// 1. a driver cannot be reserved for multiple trips on the same time period
-        /// 2. a driver cannot drive for more than 10 hrs a day
-        /// 3. a driver must have at least one day off in a week
+        private readonly IMapper _mapper;
+        private readonly ITripRepository _tripRepository;
         
-        [HttpGet]
-        public async Task<IActionResult> GetAllTrips()
+        public TripController(IMapper mapper, ITripRepository tripRepository)
         {
-            return Ok();
+            _mapper = mapper;
+            _tripRepository = tripRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTripById(Guid tripId)
+        [Route("getalltripsfordriver/{id}")]
+        public async Task<IActionResult> GetAllTripsForDriver(Guid id)
         {
-            return Ok();
+            var trips = await _tripRepository.GetAllTripsForDriver(id);
+
+            var retVal = _mapper.Map<List<TripDto>>(trips);
+            return Ok(retVal);
+        }
+
+        [HttpGet]
+        [Route("getalltripsforvehicle/{id}")]
+        public async Task<IActionResult> GetAllTripsForVehicle(Guid id)
+        {
+            var trips = await _tripRepository.GetAllTripsForVehicle(id);
+
+            var retVal = _mapper.Map<List<TripDto>>(trips);
+            return Ok(retVal);
+        }
+
+        [HttpGet]
+        [Route("gettripbyid/{id}")]
+        public async Task<IActionResult> GetTripById(Guid id)
+        {
+            var trips = await _tripRepository.GetTripById(id);
+
+            var retVal = _mapper.Map<List<TripDto>>(trips);
+            return Ok(retVal);
         }
 
         [HttpPost]
+        [Route("addnewtrip")]
         public async Task<IActionResult> AddNewTrip([FromBody]TripDto newTrip)
         {
-            return Ok();
+            var trip = _mapper.Map<Trip>(newTrip);
+            trip.Id = Guid.NewGuid();
+
+            var retVal = await _tripRepository.AddTrip(trip);
+
+            return Ok(retVal);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateTrip(Guid tripId, [FromBody]TripDto trip)
+        [Route("updatetrip/{id}")]
+        public async Task<IActionResult> UpdateTrip(Guid id, [FromBody]TripDto trip)
         {
-            return Ok();
+            var updatedTrip = _mapper.Map<Trip>(trip);
+
+            var retVal = await _tripRepository.UpdateTrip(id, updatedTrip);
+            return Ok(retVal);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteTrip(Guid tripId)
+        [Route("deletetrip/{id}")]
+        public async Task<IActionResult> DeleteTrip(Guid id)
         {
-            return Ok();
+            return Ok(await _tripRepository.RemoveTrip(id));
         }
     }
 }

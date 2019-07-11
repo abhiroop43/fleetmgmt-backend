@@ -18,10 +18,22 @@ namespace FleetMgmt.Repository.Implementations
         {
             _dbContext = dbContext;
         }
+
+        public async Task<List<Accident>> GetAllAccidents()
+        {
+            return await _dbContext.Accidents.Where(a => a.IsActive).ToListAsync();
+        }
+
         public async Task<int> AddAccident(Accident newAccident)
         {
-            _dbContext.Accidents.Add(newAccident);
-            return await SaveChanges();
+            var tripOfAccident = newAccident.Trip;
+            if (newAccident.AccidentTime > tripOfAccident.TripDate)
+            {
+                _dbContext.Accidents.Add(newAccident);
+                return await SaveChanges();
+            }
+
+            throw new Exception("The associated trip is not valid");
         }
 
         public async Task<Accident> GetAccidentById(Guid accidentId)

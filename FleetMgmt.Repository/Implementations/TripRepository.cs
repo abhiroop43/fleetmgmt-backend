@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,25 @@ namespace FleetMgmt.Repository.Implementations
 
         public async Task<int> AddTrip(Trip newTrip)
         {
+            var driverId = newTrip.DiverId;
+
+            var driverTripsInSamePeriod =
+                _dbContext.Trips.Where(t => t.DiverId == driverId && t.TripDate == newTrip.TripDate);
+
+            if (driverTripsInSamePeriod.Any())
+            {
+                throw new Exception("Driver already has a trip assigned at this time");
+            }
+
+            var driverTripsGroupByWeeks = await _dbContext.Trips.Where(t => t.DiverId == driverId).GroupBy(g =>
+                CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(g.TripDate,
+                    CalendarWeekRule.FirstDay, DayOfWeek.Sunday)).ToListAsync();
+
+            if (driverTripsGroupByWeeks.Count > 6)
+            {
+                throw new Exception("Driver is not available this week");
+            }
+            
             _dbContext.Trips.Add(newTrip);
             return await SaveChanges();
         }

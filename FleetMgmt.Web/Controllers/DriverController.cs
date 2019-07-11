@@ -46,16 +46,32 @@ namespace FleetMgmt.Web.Controllers
             return Ok(retVal);
         }
 
-        [Route("getalltripsbydriver/{id}")]
-        public async Task<IActionResult> GetAllTripsByDriver(Guid id)
-        {
-            return Ok(_driverRepository.GetAllTripsByDriver(id));
-        }
+//        [Route("getalltripsbydriver/{id}")]
+//        public async Task<IActionResult> GetAllTripsByDriver(Guid id)
+//        {
+//            return Ok(_driverRepository.GetAllTripsByDriver(id));
+//        }
 
         [Route("getallaccidentsbydriver/{id}")]
         public async Task<IActionResult> GetAllAccidentsByDriver(Guid id)
         {
             return Ok(_driverRepository.GetAllAccidentsByDriver(id));
+        }
+
+        [HttpPut]
+        [Route("updatedriver/{id}")]
+        public async Task<IActionResult> UpdateDriver(Guid id, [FromBody] DriverDto driver)
+        {
+            var updatedDriver = _mapper.Map<Driver>(driver);
+
+            return Ok(await _driverRepository.UpdateDriver(id, updatedDriver));
+        }
+
+        [HttpDelete]
+        [Route("deletedriver/{id}")]
+        public async Task<IActionResult> DeleteDriver(Guid id)
+        {
+            return Ok(await _driverRepository.RemoveDriver(id));
         }
     }
 }

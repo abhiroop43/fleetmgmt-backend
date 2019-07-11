@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FleetMgmt.Dto;
 using FleetMgmt.Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleetMgmt.Web.Controllers
@@ -17,53 +14,59 @@ namespace FleetMgmt.Web.Controllers
     public class AccidentController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IVehicleRepository _vehicleRepository;
-        private readonly IDriverRepository _driverRepository;
-        public AccidentController(IMapper mapper, IVehicleRepository vehicleRepository, IDriverRepository driverRepository)
+        private readonly IAccidentRepository _accidentRepository;
+
+        public AccidentController(IMapper mapper, IAccidentRepository accidentRepository)
         {
             _mapper = mapper;
-            _vehicleRepository = vehicleRepository;
-            _driverRepository = driverRepository;
+            _accidentRepository = accidentRepository;
         }
-        //// Business Logic: An accident can only happen if the driver is driving the specified vehicle during that time
+
         [HttpGet]
+        [Route("getallaccidents")]
         public async Task<IActionResult> GetAllAccidents()
         {
-            return Ok();
+            return Ok(await _accidentRepository.GetAllAccidents());
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAccidentById(Guid accidentId)
+        [Route("getaccidentbyid/{id}")]
+        public async Task<IActionResult> GetAccidentById(Guid id)
         {
             return Ok();
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAccidentsForDriver()
+        [Route("getaccidentsfordriver/{id}")]
+        public async Task<IActionResult> GetAccidentsForDriver(Guid id)
         {
             return Ok();
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAccidentsForVehicle()
+        [Route("getaccidentsforvehicle/{id}")]
+        public async Task<IActionResult> GetAccidentsForVehicle(Guid id)
         {
             return Ok();
         }
 
         [HttpPost]
+        [Route("addnewaccident")]
         public async Task<IActionResult> AddNewAccident([FromBody]AccidentDto newAccident)
         {
             return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAccident(Guid accidentId, [FromBody]AccidentDto accident)
+        [Route("updateaccident/{id}")]
+        public async Task<IActionResult> UpdateAccident(Guid id, [FromBody]AccidentDto accident)
         {
             return Ok();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAccident(Guid accidentId)
+        [Route("deleteaccident/{id}")]
+        public async Task<IActionResult> DeleteAccident(Guid id)
         {
             return Ok();
         }

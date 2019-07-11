@@ -23,6 +23,7 @@ namespace FleetMgmt.Repository.Interfaces
 
         Task<List<Accident>> GetAllAccidentsByDriver(Guid driverId);
 
+        [Obsolete]
         Task<List<Trip>> GetAllTripsByDriver(Guid driverId);
     }
 }
