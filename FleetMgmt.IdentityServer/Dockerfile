@@ -7,6 +7,7 @@ WORKDIR /src
 COPY ["FleetMgmt.IdentityServer/FleetMgmt.IdentityServer.csproj", "FleetMgmt.IdentityServer/"]
 RUN dotnet restore "FleetMgmt.IdentityServer/FleetMgmt.IdentityServer.csproj"
 COPY . .
+COPY ["FleetMgmt.IdentityServer/entrypoint.sh", "/app/"]
 WORKDIR "/src/FleetMgmt.IdentityServer"
 RUN dotnet build "FleetMgmt.IdentityServer.csproj" -c Release -o /app
 
@@ -16,4 +17,6 @@ RUN dotnet publish "FleetMgmt.IdentityServer.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "FleetMgmt.IdentityServer.dll", "/seed"]
+# ENTRYPOINT ["dotnet", "FleetMgmt.IdentityServer.dll", "/seed"]
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]
