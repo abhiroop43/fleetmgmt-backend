@@ -1,16 +1,6 @@
 version: '3.4'
 
 services:
-  fleetmgmt.identityserver:
-    image: ${DOCKER_REGISTRY-}fleetmgmtidentityserver
-    build:
-      context: .
-      dockerfile: FleetMgmt.IdentityServer/Dockerfile
-    ports:
-        - "8000:80"
-    depends_on:
-        - sqlserver
-
   sqlserver:
     image: "mcr.microsoft.com/mssql/server"
     hostname: 'sqlserver'
@@ -23,3 +13,13 @@ services:
       - "1433"
     volumes:
       - ./FleetMgmt.IdentityServer/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  fleetmgmt.identityserver:
+    image: ${DOCKER_REGISTRY-}fleetmgmtidentityserver
+    build:
+      context: .
+      dockerfile: FleetMgmt.IdentityServer/Dockerfile
+    ports:
+        - "8000:80"
+    depends_on:
+        - sqlserver

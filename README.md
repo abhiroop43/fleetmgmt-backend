@@ -9,6 +9,8 @@ Uses **ASP.NET Core v2** and **IdentityServer4** for authentication.
 
     _dotnet ef database update --context ConfigurationDbContext_
 
+    _dotnet ef database update --context ApplicationDbContext_
+
     _dotnet run /seed_
 
     The **seed** flag updates the database with the clients, the Identity resources and the API resources.
