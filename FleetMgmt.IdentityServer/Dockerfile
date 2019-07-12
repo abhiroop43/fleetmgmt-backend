@@ -7,7 +7,7 @@ WORKDIR /src
 COPY ["FleetMgmt.IdentityServer/FleetMgmt.IdentityServer.csproj", "FleetMgmt.IdentityServer/"]
 RUN dotnet restore "FleetMgmt.IdentityServer/FleetMgmt.IdentityServer.csproj"
 COPY . .
-COPY ["FleetMgmt.IdentityServer/entrypoint.sh", "/app/"]
+# COPY ["FleetMgmt.IdentityServer/entrypoint.sh", "/app/"]
 WORKDIR "/src/FleetMgmt.IdentityServer"
 RUN dotnet build "FleetMgmt.IdentityServer.csproj" -c Release -o /app
 
