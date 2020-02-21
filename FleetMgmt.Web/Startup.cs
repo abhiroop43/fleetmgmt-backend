@@ -5,6 +5,7 @@ using FleetMgmt.Repository.Implementations;
 using FleetMgmt.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,10 +43,10 @@ namespace FleetMgmt.Web
 
             //            services.AddMvc();
             services
-                .AddAutoMapper()
+                .AddAutoMapper(typeof(Startup))
                 .AddMvcCore()
                 .AddAuthorization()
-                .AddJsonFormatters();
+                .AddNewtonsoftJson();
 
             services
                 .AddTransient<IVehicleRepository, VehicleRepository>()
@@ -63,11 +64,16 @@ namespace FleetMgmt.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("default");
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "api/{controller}/{id}");
+                endpoints.MapHealthChecks("/health");
+            });
         }
     }
 }

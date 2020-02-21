@@ -4,11 +4,12 @@ using FleetMgmt.IdentityServer.Models;
 using FleetMgmt.IdentityServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+// using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace FleetMgmt.IdentityServer
@@ -16,7 +17,7 @@ namespace FleetMgmt.IdentityServer
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
@@ -88,7 +89,7 @@ namespace FleetMgmt.IdentityServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // Use CORS
             app.UseCors("default");
@@ -96,7 +97,7 @@ namespace FleetMgmt.IdentityServer
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                // app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
             }
             else
@@ -109,11 +110,18 @@ namespace FleetMgmt.IdentityServer
             // app.UseAuthentication(); // not needed, since UseIdentityServer adds the authentication middleware
             app.UseIdentityServer();
 
-            app.UseMvc(routes =>
+            // app.UseMvc(routes =>
+            // {
+            //     routes.MapRoute(
+            //         name: "default",
+            //         template: "{controller=Home}/{action=Index}/{id?}");
+            // });
+            
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "api/{controller}/{id}");
+                endpoints.MapHealthChecks("/health");
             });
         }
     }
