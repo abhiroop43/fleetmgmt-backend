@@ -4,14 +4,16 @@ using FleetMgmt.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FleetMgmt.Data.Migrations
 {
     [DbContext(typeof(FmDbContext))]
-    partial class FmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200228100005_FrameworkUpdateWeb3")]
+    partial class FrameworkUpdateWeb3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

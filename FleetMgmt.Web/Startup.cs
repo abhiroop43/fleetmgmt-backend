@@ -61,6 +61,9 @@ namespace FleetMgmt.Web
                     options.RequireHttpsMetadata = Convert.ToBoolean(Configuration.GetSection("AuthRequireHttps").Value);
                     options.ApiName = Configuration.GetSection("AuthApiName").Value;
                 });
+            
+            services.AddHealthChecks();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
