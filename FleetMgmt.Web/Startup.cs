@@ -5,10 +5,10 @@ using FleetMgmt.Repository.Implementations;
 using FleetMgmt.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 namespace FleetMgmt.Web
 {
@@ -63,6 +63,16 @@ namespace FleetMgmt.Web
                 });
             
             services.AddHealthChecks();
+            
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fleet Management API", Version = "v1" });
+            });
+            
+            services.AddSwaggerGenNewtonsoftSupport();
+            
+            services.AddMvc();
 
         }
 
@@ -71,6 +81,18 @@ namespace FleetMgmt.Web
         {
             app.UseCors("default");
             app.UseAuthentication();
+            
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fleet Management API");
+                c.RoutePrefix = string.Empty;
+            });
+            
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {

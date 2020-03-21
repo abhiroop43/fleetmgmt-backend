@@ -23,7 +23,8 @@ namespace FleetMgmt.Web.Controllers
             _mapper = mapper;
             _vehicleRepository = vehicleRepository;
         }
-
+        
+        [HttpGet]
         [Route("getallvehicles")]
         public async Task<ActionResult> GetAllVehicles()
         {
@@ -33,7 +34,8 @@ namespace FleetMgmt.Web.Controllers
 
             return Ok(retVal);
         }
-
+        
+        [HttpGet]
         [Route("getvehiclebyid/{id}")]
         public async Task<ActionResult> GetVehicleById(Guid id)
         {
@@ -67,6 +69,7 @@ namespace FleetMgmt.Web.Controllers
             return Ok(await _vehicleRepository.RemoveVehicle(id));
         }
 
+        [HttpGet]
         [Route("getallaccidentsofvehicle/{id}")]
         public async Task<ActionResult> GetAllAccidentsOfVehicle(Guid id)
         {

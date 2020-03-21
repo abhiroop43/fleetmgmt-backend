@@ -24,6 +24,7 @@ namespace FleetMgmt.Web.Controllers
             _driverRepository = driverRepository;
         }
 
+        [HttpGet]
         [Route("getalldrivers")]
         public async Task<IActionResult> GetAllDrivers()
         {
@@ -51,7 +52,7 @@ namespace FleetMgmt.Web.Controllers
 //        {
 //            return Ok(_driverRepository.GetAllTripsByDriver(id));
 //        }
-
+        [HttpGet]
         [Route("getallaccidentsbydriver/{id}")]
         public async Task<IActionResult> GetAllAccidentsByDriver(Guid id)
         {
