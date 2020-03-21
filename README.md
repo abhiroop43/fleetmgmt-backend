@@ -2,7 +2,7 @@
 
 Backend Web API for the Fleet Management System.
 
-Uses **ASP.NET Core v2** and **IdentityServer4** for authentication.
+Uses **ASP.NET Core v3** and **IdentityServer4** for authentication.
 
 1. Run the IdentityServer first, then the backend server.
 2. To run the identity server navigate to the **FleetMgmt.IdentityServer** directory and run the commands:
@@ -22,6 +22,37 @@ Uses **ASP.NET Core v2** and **IdentityServer4** for authentication.
     This will populate the database with the tables.
 
 4. Navigate to the web server directory **FleetMgmt.Web** and run the command _dotnet run_
+
+5. To register the user, you may use the following request:
+
+    URL: http://localhost:5000/Account/RegisterUser
+
+    Request Type: POST
+
+    Sample Request:
+
+    {
+      "email": "jane.doe@example.com",
+      "password": "MySecuredPassword@123",
+      "confirmPassword": "MySecuredPassword@123"
+    }
+
+6. To get the login token, you may use the following request:
+
+    URL: http://localhost:5000/connect/token
+
+    Request Type: POST
+
+    Headers: {"Content-Type": "multipart/form-data"}
+
+    Request Body:
+
+    client_id:ro.client
+    client_secret:secret
+    grant_type:password
+    username:john.doe@example.com
+    password:Abcd@1234
+    scope:fleetMgmt
 
 ##### Please Note: This solution (both the Web API and the IdentityServer) uses SQL Local DB. You may change the connection string from the **_appsettings.json_** file.
 
