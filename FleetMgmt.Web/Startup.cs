@@ -93,6 +93,7 @@ namespace FleetMgmt.Web
             });
             
             app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "api/{controller}/{id}");
