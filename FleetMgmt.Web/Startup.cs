@@ -40,8 +40,7 @@ namespace FleetMgmt.Web
                    options
                    .UseSqlServer(Configuration
                        .GetConnectionString("DefaultConnection")));
-
-            //            services.AddMvc();
+            
             services
                 .AddAutoMapper(typeof(Startup))
                 .AddMvcCore()
