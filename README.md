@@ -7,52 +7,52 @@ Uses **ASP.NET Core v3** and **IdentityServer4** for authentication.
 1. Run the IdentityServer first, then the backend server.
 2. To run the identity server navigate to the **FleetMgmt.IdentityServer** directory and run the commands:
 
-    _dotnet ef database update --context ConfigurationDbContext_
+   _dotnet ef database update --context ConfigurationDbContext_
 
-    _dotnet ef database update --context ApplicationDbContext_
+   _dotnet ef database update --context ApplicationDbContext_
 
-    _dotnet run /seed_
+   _dotnet run /seed_
 
-    The **seed** flag updates the database with the clients, the Identity resources and the API resources.
+   The **seed** flag updates the database with the clients, the Identity resources and the API resources.
 
-3. Navigate to the Data directory **FleetMgmt.Data** and run the command:
+3. Navigate to the Data directory **FleetMgmt.Web** and run the command:
 
-    _dotnet ef database update --context FmDbContext_
+   _dotnet ef database update --context FmDbContext_
 
-    This will populate the database with the tables.
+   This will populate the database with the tables.
 
 4. Navigate to the web server directory **FleetMgmt.Web** and run the command _dotnet run_
 
 5. To register the user, you may use the following request:
 
-    URL: http://localhost:5000/Account/RegisterUser
+   URL: http://localhost:5000/Account/RegisterUser
 
-    Request Type: POST
+   Request Type: POST
 
-    Sample Request:
+   Sample Request:
 
-    {
-      "email": "jane.doe@example.com",
-      "password": "MySecuredPassword@123",
-      "confirmPassword": "MySecuredPassword@123"
-    }
+   {
+   "email": "jane.doe@example.com",
+   "password": "MySecuredPassword@123",
+   "confirmPassword": "MySecuredPassword@123"
+   }
 
 6. To get the login token, you may use the following request:
 
-    URL: http://localhost:5000/connect/token
+   URL: http://localhost:5000/connect/token
 
-    Request Type: POST
+   Request Type: POST
 
-    Headers: {"Content-Type": "multipart/form-data"}
+   Headers: {"Content-Type": "multipart/form-data"}
 
-    Request Body:
+   Request Body:
 
-    client_id:ro.client
-    client_secret:secret
-    grant_type:password
-    username:john.doe@example.com
-    password:Abcd@1234
-    scope:fleetMgmt
+   client_id:ro.client
+   client_secret:secret
+   grant_type:password
+   username:john.doe@example.com
+   password:Abcd@1234
+   scope:fleetMgmt
 
 ##### Please Note: This solution (both the Web API and the IdentityServer) uses SQL Local DB. You may change the connection string from the **_appsettings.json_** file.
 
