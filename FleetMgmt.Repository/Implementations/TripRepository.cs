@@ -40,8 +40,9 @@ namespace FleetMgmt.Repository.Implementations
             {
                 throw new Exception("Driver is not available this week");
             }
-            
-            _dbContext.Trips.Add(newTrip);
+
+            newTrip.Id = Guid.NewGuid().ToString();
+            await _dbContext.Trips.AddAsync(newTrip);
             return await SaveChanges();
         }
 

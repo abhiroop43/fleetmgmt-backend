@@ -49,7 +49,6 @@ namespace FleetMgmt.Web.Controllers
         public async Task<ActionResult> AddNewVehicle([FromBody] VehicleDto newvehicle)
         {
             var vehicle = _mapper.Map<Vehicle>(newvehicle);
-            vehicle.Id = Guid.NewGuid();
             return Ok(await _vehicleRepository.AddVehicle(vehicle));
         }
 

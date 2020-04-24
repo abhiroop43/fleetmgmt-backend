@@ -58,7 +58,6 @@ namespace FleetMgmt.Web.Controllers
         public async Task<IActionResult> AddNewAccident([FromBody]AccidentDto newAccident)
         {
             var accident = _mapper.Map<Accident>(newAccident);
-            accident.Id = Guid.NewGuid();
             return Ok(await _accidentRepository.AddAccident(accident));
         }
 

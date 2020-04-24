@@ -59,7 +59,6 @@ namespace FleetMgmt.Web.Controllers
         public async Task<IActionResult> AddNewTrip([FromBody]TripDto newTrip)
         {
             var trip = _mapper.Map<Trip>(newTrip);
-            trip.Id = Guid.NewGuid();
 
             var retVal = await _tripRepository.AddTrip(trip);
 

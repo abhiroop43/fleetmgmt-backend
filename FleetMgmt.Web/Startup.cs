@@ -89,7 +89,7 @@ namespace FleetMgmt.Web
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fleet Management API");
-                c.RoutePrefix = string.Empty;
+                // c.RoutePrefix = string.Empty;
             });
             
             app.UseRouting();

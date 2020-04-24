@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FleetMgmt.Data.Entities
 {
-    public class Driver
+    public class Driver : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }

@@ -23,10 +23,12 @@ namespace FleetMgmt.Dto
         [MaxLength(100)]
         public string PlateNumber { get; set; }
 
+        [MaxLength(250)]
         public string EngineNumber { get; set; }
 
+        [MaxLength(250)]
         public string ChassisNumber { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
         public long? KilometersDriven { get; set; }
     }

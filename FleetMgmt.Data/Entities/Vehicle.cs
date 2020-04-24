@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FleetMgmt.Data.Entities
 {
-    public class Vehicle
+    public class Vehicle : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(255)]
         public string Make { get; set; }

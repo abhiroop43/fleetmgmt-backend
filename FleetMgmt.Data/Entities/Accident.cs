@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FleetMgmt.Data.Entities
 {
-    public class Accident
+    public class Accident : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         public Guid TripId { get; set; }
 

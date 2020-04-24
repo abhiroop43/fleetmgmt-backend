@@ -18,7 +18,8 @@ namespace FleetMgmt.Repository.Implementations
         }
         public async Task<int> AddVehicle(Vehicle newVehicle)
         {
-            _dbContext.Vehicles.Add(newVehicle);
+            newVehicle.Id = Guid.NewGuid().ToString();
+            await _dbContext.Vehicles.AddAsync(newVehicle);
             return await SaveChanges();
         }
 

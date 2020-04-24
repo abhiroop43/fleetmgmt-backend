@@ -60,7 +60,7 @@ namespace FleetMgmt.Test
         {
             var driver = new Driver
             {
-                Id = id,
+                Id = id.ToString(),
                 FirstName = "John",
                 LastName = "Doe",
                 IsActive = true,
@@ -76,7 +76,7 @@ namespace FleetMgmt.Test
             {
                 var driver = new Driver
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     FirstName = "John " + i,
                     LastName = "Doe " + i,
                     IsActive = true,

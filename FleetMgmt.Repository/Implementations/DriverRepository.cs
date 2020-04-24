@@ -20,7 +20,8 @@ namespace FleetMgmt.Repository.Implementations
 
         public async Task<int> AddDriver(Driver newDriver)
         {
-            _dbContext.Drivers.Add(newDriver);
+            newDriver.Id = Guid.NewGuid().ToString();
+            await _dbContext.Drivers.AddAsync(newDriver);
 
             return await SaveChanges();
         }

@@ -27,9 +27,10 @@ namespace FleetMgmt.Repository.Implementations
         public async Task<int> AddAccident(Accident newAccident)
         {
             var tripOfAccident = newAccident.Trip;
+            newAccident.Id = Guid.NewGuid().ToString();
             if (newAccident.AccidentTime > tripOfAccident.TripDate)
             {
-                _dbContext.Accidents.Add(newAccident);
+                await _dbContext.Accidents.AddAsync(newAccident);
                 return await SaveChanges();
             }
 

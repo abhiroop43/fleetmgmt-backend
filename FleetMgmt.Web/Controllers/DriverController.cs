@@ -40,10 +40,7 @@ namespace FleetMgmt.Web.Controllers
         public async Task<IActionResult> AddNewDriver([FromBody] DriverDto newDriver)
         {
             var driver = _mapper.Map<Driver>(newDriver);
-            driver.Id = Guid.NewGuid();
-
             var retVal = await _driverRepository.AddDriver(driver);
-
             return Ok(retVal);
         }
 

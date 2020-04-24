@@ -21,15 +21,20 @@ namespace FleetMgmt.Data.Migrations
 
             modelBuilder.Entity("FleetMgmt.Data.Entities.Accident", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("AccidentTime")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("CoveredByInsurance")
                         .HasColumnType("bit");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal?>("Fine")
                         .HasColumnType("decimal(18,2)");
@@ -43,18 +48,32 @@ namespace FleetMgmt.Data.Migrations
                     b.Property<Guid>("TripId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("TripId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("TripId");
+                    b.HasIndex("TripId1");
 
                     b.ToTable("Accidents");
                 });
 
             modelBuilder.Entity("FleetMgmt.Data.Entities.Driver", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -77,6 +96,12 @@ namespace FleetMgmt.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Drivers");
@@ -84,15 +109,20 @@ namespace FleetMgmt.Data.Migrations
 
             modelBuilder.Entity("FleetMgmt.Data.Entities.Trip", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("DiverId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DriverId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("DriverId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -103,23 +133,31 @@ namespace FleetMgmt.Data.Migrations
                     b.Property<DateTime>("TripDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("VehicleId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("VehicleId1")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DriverId");
 
-                    b.HasIndex("VehicleId");
+                    b.HasIndex("VehicleId1");
 
                     b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("FleetMgmt.Data.Entities.Vehicle", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ChassisNumber")
                         .HasColumnType("nvarchar(max)");
@@ -128,6 +166,12 @@ namespace FleetMgmt.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("EngineNumber")
                         .HasColumnType("nvarchar(max)");
@@ -153,6 +197,12 @@ namespace FleetMgmt.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Vehicles");
@@ -162,9 +212,7 @@ namespace FleetMgmt.Data.Migrations
                 {
                     b.HasOne("FleetMgmt.Data.Entities.Trip", "Trip")
                         .WithMany()
-                        .HasForeignKey("TripId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TripId1");
                 });
 
             modelBuilder.Entity("FleetMgmt.Data.Entities.Trip", b =>
@@ -175,9 +223,7 @@ namespace FleetMgmt.Data.Migrations
 
                     b.HasOne("FleetMgmt.Data.Entities.Vehicle", "Vehicle")
                         .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VehicleId1");
                 });
 #pragma warning restore 612, 618
         }
