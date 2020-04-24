@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FleetMgmt.Data.Migrations
 {
-    public partial class Intial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,10 +60,9 @@ namespace FleetMgmt.Data.Migrations
                     UpdatedBy = table.Column<string>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
                     Length = table.Column<long>(nullable: false),
-                    VehicleId = table.Column<Guid>(nullable: false),
-                    DiverId = table.Column<Guid>(nullable: false),
+                    VehicleId = table.Column<string>(nullable: false),
+                    DiverId = table.Column<string>(nullable: false),
                     TripDate = table.Column<DateTime>(nullable: false),
-                    VehicleId1 = table.Column<string>(nullable: true),
                     DriverId = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false)
                 },
@@ -77,11 +76,11 @@ namespace FleetMgmt.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Trips_Vehicles_VehicleId1",
-                        column: x => x.VehicleId1,
+                        name: "FK_Trips_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,29 +92,28 @@ namespace FleetMgmt.Data.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
-                    TripId = table.Column<Guid>(nullable: false),
+                    TripId = table.Column<string>(nullable: false),
                     AccidentTime = table.Column<DateTime>(nullable: false),
                     IsOwnFault = table.Column<bool>(nullable: false),
                     Fine = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CoveredByInsurance = table.Column<bool>(nullable: false),
-                    TripId1 = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Accidents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Accidents_Trips_TripId1",
-                        column: x => x.TripId1,
+                        name: "FK_Accidents_Trips_TripId",
+                        column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accidents_TripId1",
+                name: "IX_Accidents_TripId",
                 table: "Accidents",
-                column: "TripId1");
+                column: "TripId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trips_DriverId",
@@ -123,9 +121,9 @@ namespace FleetMgmt.Data.Migrations
                 column: "DriverId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trips_VehicleId1",
+                name: "IX_Trips_VehicleId",
                 table: "Trips",
-                column: "VehicleId1");
+                column: "VehicleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

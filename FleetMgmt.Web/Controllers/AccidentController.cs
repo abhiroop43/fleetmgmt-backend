@@ -41,14 +41,14 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpGet]
         [Route("getaccidentsfordriver/{id}")]
-        public async Task<IActionResult> GetAccidentsForDriver(Guid id)
+        public async Task<IActionResult> GetAccidentsForDriver(string id)
         {
             return Ok(await _driverRepository.GetAllAccidentsByDriver(id));
         }
 
         [HttpGet]
         [Route("getaccidentsforvehicle/{id}")]
-        public async Task<IActionResult> GetAccidentsForVehicle(Guid id)
+        public async Task<IActionResult> GetAccidentsForVehicle(string id)
         {
             return Ok(await _accidentRepository.GetAllAccidentsForVehicle(id));
         }

@@ -42,7 +42,7 @@ namespace FleetMgmt.Repository.Implementations
             return await _dbContext.Accidents.FindAsync(accidentId);
         }
 
-        public async Task<List<Accident>> GetAllAccidentsForVehicle(Guid vehicleId)
+        public async Task<List<Accident>> GetAllAccidentsForVehicle(string vehicleId)
         {
             return await _dbContext.Accidents.Where(a => a.Trip.VehicleId == vehicleId).ToListAsync();
         }

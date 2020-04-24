@@ -9,10 +9,10 @@ namespace FleetMgmt.Data.Entities
         public long Length { get; set; }
 
         [Required]
-        public Guid VehicleId { get; set; }
+        public string VehicleId { get; set; }
 
         [Required]
-        public Guid DiverId { get; set; }
+        public string DiverId { get; set; }
 
         [Required]
         public DateTime TripDate { get; set; }

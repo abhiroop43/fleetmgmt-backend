@@ -51,14 +51,14 @@ namespace FleetMgmt.Web.Controllers
 //        }
         [HttpGet]
         [Route("getallaccidentsbydriver/{id}")]
-        public async Task<IActionResult> GetAllAccidentsByDriver(Guid id)
+        public async Task<IActionResult> GetAllAccidentsByDriver(string id)
         {
-            return Ok(_driverRepository.GetAllAccidentsByDriver(id));
+            return Ok(await _driverRepository.GetAllAccidentsByDriver(id));
         }
 
         [HttpPut]
         [Route("updatedriver/{id}")]
-        public async Task<IActionResult> UpdateDriver(Guid id, [FromBody] DriverDto driver)
+        public async Task<IActionResult> UpdateDriver(string id, [FromBody] DriverDto driver)
         {
             var updatedDriver = _mapper.Map<Driver>(driver);
 
@@ -67,7 +67,7 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpDelete]
         [Route("deletedriver/{id}")]
-        public async Task<IActionResult> DeleteDriver(Guid id)
+        public async Task<IActionResult> DeleteDriver(string id)
         {
             return Ok(await _driverRepository.RemoveDriver(id));
         }

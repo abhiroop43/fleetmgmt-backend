@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FleetMgmt.Data.Entities;
+using FleetMgmt.Dto;
 
 namespace FleetMgmt.Repository.Interfaces
 {
     public interface IVehicleRepository
     {
-        Task<int> AddVehicle(Vehicle newVehicle);
+        Task<ServiceResponse> AddVehicle(Vehicle newVehicle);
 
-        Task<int> UpdateVehicle(Guid vehicleId, Vehicle updatedVehicleInfo);
+        Task<int> UpdateVehicle(string vehicleId, Vehicle updatedVehicleInfo);
 
-        Task<int> RemoveVehicle(Guid vehicleId);
+        Task<int> RemoveVehicle(string vehicleId);
 
         Task<List<Vehicle>> GetAllVehicles();
 
-        Task<Vehicle> GetVehicleById(Guid vehicleId);
-        Task<List<Accident>> GetAllAccidentsForVehicle(Guid vehicleId);
+        Task<Vehicle> GetVehicleById(string vehicleId);
+        Task<List<Accident>> GetAllAccidentsForVehicle(string vehicleId);
     }
 }

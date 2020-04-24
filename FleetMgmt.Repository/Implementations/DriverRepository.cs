@@ -26,7 +26,7 @@ namespace FleetMgmt.Repository.Implementations
             return await SaveChanges();
         }
 
-        public async Task<List<Accident>> GetAllAccidentsByDriver(Guid driverId)
+        public async Task<List<Accident>> GetAllAccidentsByDriver(string driverId)
         {
             return await _dbContext.Accidents.Where(a => a.Trip.DiverId == driverId).ToListAsync();
         }
@@ -37,29 +37,29 @@ namespace FleetMgmt.Repository.Implementations
         }
 
         [Obsolete]
-        public async Task<List<Trip>> GetAllTripsByDriver(Guid driverId)
+        public async Task<List<Trip>> GetAllTripsByDriver(string driverId)
         {
             return await _dbContext.Trips.Where(t => t.DiverId == driverId).ToListAsync();
         }
 
-        public async Task<List<Vehicle>> GetAllVehiclesDrivenByDriver(Guid driverId)
+        public async Task<List<Vehicle>> GetAllVehiclesDrivenByDriver(string driverId)
         {
             return await _dbContext.Trips.Where(t => t.DiverId == driverId).Select(t => t.Vehicle).ToListAsync();
         }
 
-        public async Task<Driver> GetDriverById(Guid driverId)
+        public async Task<Driver> GetDriverById(string driverId)
         {
             return await _dbContext.Drivers.FindAsync(driverId);
         }
 
-        public async Task<decimal?> GetTotalFinesOfDriver(Guid driverId)
+        public async Task<decimal?> GetTotalFinesOfDriver(string driverId)
         {
             List<Accident> accidents = await GetAllAccidentsByDriver(driverId);
 
             return accidents.Sum(a => a.Fine);
         }
 
-        public async Task<int> RemoveDriver(Guid driverId)
+        public async Task<int> RemoveDriver(string driverId)
         {
             Driver driver = await GetDriverById(driverId);
 
@@ -77,7 +77,7 @@ namespace FleetMgmt.Repository.Implementations
             return await SaveChanges();
         }
 
-        public async Task<int> UpdateDriver(Guid driverId, Driver updatedDriverInfo)
+        public async Task<int> UpdateDriver(string driverId, Driver updatedDriverInfo)
         {
             Driver driver = await GetDriverById(driverId);
             if (driver != null)

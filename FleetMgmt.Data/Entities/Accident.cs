@@ -7,7 +7,7 @@ namespace FleetMgmt.Data.Entities
     public class Accident : BaseEntity
     {
         [Required]
-        public Guid TripId { get; set; }
+        public string TripId { get; set; }
 
         [Required]
         public DateTime AccidentTime { get; set; }

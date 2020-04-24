@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FleetMgmt.Data;
 using FleetMgmt.Data.Entities;
+using FleetMgmt.Dto;
 using FleetMgmt.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,14 +17,34 @@ namespace FleetMgmt.Repository.Implementations
         {
             _dbContext = dbContext;
         }
-        public async Task<int> AddVehicle(Vehicle newVehicle)
+        public async Task<ServiceResponse> AddVehicle(Vehicle newVehicle)
         {
+            ServiceResponse response = null;
             newVehicle.Id = Guid.NewGuid().ToString();
             await _dbContext.Vehicles.AddAsync(newVehicle);
-            return await SaveChanges();
+            var savedRecords =  await SaveChanges();
+
+            if (savedRecords > 0)
+            {
+                response = new ServiceResponse
+                {
+                    Success = true,
+                    Message = "Vehicle Added successfully"
+                };
+            }
+            else
+            {
+                response  = new ServiceResponse
+                {
+                    Success = false,
+                    Message = "Vehicle not saved"
+                };
+            }
+
+            return response;
         }
 
-        public async Task<List<Accident>> GetAllAccidentsForVehicle(Guid vehicleId)
+        public async Task<List<Accident>> GetAllAccidentsForVehicle(string vehicleId)
         {
             return await _dbContext.Accidents.Where(a => a.Trip.VehicleId == vehicleId).ToListAsync();
         }
@@ -33,7 +54,7 @@ namespace FleetMgmt.Repository.Implementations
             return await _dbContext.Vehicles.Where(v => v.IsActive).ToListAsync();
         }
 
-        public async Task<Vehicle> GetVehicleById(Guid vehicleId)
+        public async Task<Vehicle> GetVehicleById(string vehicleId)
         {
             var vehicle = await _dbContext.Vehicles.FindAsync(vehicleId);
 
@@ -45,7 +66,7 @@ namespace FleetMgmt.Repository.Implementations
             return vehicle;
         }
 
-        public async Task<int> RemoveVehicle(Guid vehicleId)
+        public async Task<int> RemoveVehicle(string vehicleId)
         {
             var vehicle = await _dbContext.Vehicles.FindAsync(vehicleId);
 
@@ -60,7 +81,7 @@ namespace FleetMgmt.Repository.Implementations
             return await SaveChanges();
         }
 
-        public async Task<int> UpdateVehicle(Guid vehicleId, Vehicle updatedVehicleInfo)
+        public async Task<int> UpdateVehicle(string vehicleId, Vehicle updatedVehicleInfo)
         {
             var vehicle = await _dbContext.Vehicles.FindAsync(vehicleId);
 

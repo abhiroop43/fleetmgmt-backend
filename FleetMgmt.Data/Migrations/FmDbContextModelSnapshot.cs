@@ -45,10 +45,8 @@ namespace FleetMgmt.Data.Migrations
                     b.Property<bool>("IsOwnFault")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("TripId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TripId1")
+                    b.Property<string>("TripId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UpdatedBy")
@@ -59,7 +57,7 @@ namespace FleetMgmt.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TripId1");
+                    b.HasIndex("TripId");
 
                     b.ToTable("Accidents");
                 });
@@ -118,8 +116,9 @@ namespace FleetMgmt.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DiverId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("DiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DriverId")
                         .HasColumnType("nvarchar(450)");
@@ -139,17 +138,15 @@ namespace FleetMgmt.Data.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("VehicleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("VehicleId1")
+                    b.Property<string>("VehicleId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DriverId");
 
-                    b.HasIndex("VehicleId1");
+                    b.HasIndex("VehicleId");
 
                     b.ToTable("Trips");
                 });
@@ -212,7 +209,9 @@ namespace FleetMgmt.Data.Migrations
                 {
                     b.HasOne("FleetMgmt.Data.Entities.Trip", "Trip")
                         .WithMany()
-                        .HasForeignKey("TripId1");
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FleetMgmt.Data.Entities.Trip", b =>
@@ -223,7 +222,9 @@ namespace FleetMgmt.Data.Migrations
 
                     b.HasOne("FleetMgmt.Data.Entities.Vehicle", "Vehicle")
                         .WithMany()
-                        .HasForeignKey("VehicleId1");
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

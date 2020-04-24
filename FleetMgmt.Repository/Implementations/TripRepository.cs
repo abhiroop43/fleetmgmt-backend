@@ -46,22 +46,22 @@ namespace FleetMgmt.Repository.Implementations
             return await SaveChanges();
         }
 
-        public async Task<List<Trip>> GetAllTripsForDriver(Guid driverId)
+        public async Task<List<Trip>> GetAllTripsForDriver(string driverId)
         {
             return await _dbContext.Trips.Where(t => t.DiverId == driverId).ToListAsync();
         }
 
-        public async Task<List<Trip>> GetAllTripsForVehicle(Guid vehicleGuid)
+        public async Task<List<Trip>> GetAllTripsForVehicle(string vehicleGuid)
         {
             return await _dbContext.Trips.Where(t => t.VehicleId == vehicleGuid).ToListAsync();
         }
 
-        public async Task<Trip> GetTripById(Guid tripId)
+        public async Task<Trip> GetTripById(string tripId)
         {
             return await _dbContext.Trips.FindAsync(tripId);
         }
 
-        public async Task<int> RemoveTrip(Guid tripId)
+        public async Task<int> RemoveTrip(string tripId)
         {
             var foundTrip = await _dbContext.Trips.FindAsync(tripId);
 
@@ -74,7 +74,7 @@ namespace FleetMgmt.Repository.Implementations
             return await SaveChanges();
         }
 
-        public async Task<int> UpdateTrip(Guid tripId, Trip updatedTripInfo)
+        public async Task<int> UpdateTrip(string tripId, Trip updatedTripInfo)
         {
             var currentTrip = await _dbContext.Trips.FindAsync(tripId);
 

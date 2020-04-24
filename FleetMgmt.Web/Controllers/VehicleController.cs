@@ -37,7 +37,7 @@ namespace FleetMgmt.Web.Controllers
         
         [HttpGet]
         [Route("getvehiclebyid/{id}")]
-        public async Task<ActionResult> GetVehicleById(Guid id)
+        public async Task<ActionResult> GetVehicleById(string id)
         {
             var vehicle = await _vehicleRepository.GetVehicleById(id);
 
@@ -54,7 +54,7 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpPut]
         [Route("updatevehicle/{id}")]
-        public async Task<ActionResult> UpdateVehicle(Guid id, [FromBody] VehicleDto updatedVehicleInfo)
+        public async Task<ActionResult> UpdateVehicle(string id, [FromBody] VehicleDto updatedVehicleInfo)
         {
             var vehicle = _mapper.Map<Vehicle>(updatedVehicleInfo);
 
@@ -63,14 +63,14 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpDelete]
         [Route("deletevehicle/{id}")]
-        public async Task<ActionResult> DeleteVehicle(Guid id)
+        public async Task<ActionResult> DeleteVehicle(string id)
         {
             return Ok(await _vehicleRepository.RemoveVehicle(id));
         }
 
         [HttpGet]
         [Route("getallaccidentsofvehicle/{id}")]
-        public async Task<ActionResult> GetAllAccidentsOfVehicle(Guid id)
+        public async Task<ActionResult> GetAllAccidentsOfVehicle(string id)
         {
             return Ok(await _vehicleRepository.GetAllAccidentsForVehicle(id));
         }

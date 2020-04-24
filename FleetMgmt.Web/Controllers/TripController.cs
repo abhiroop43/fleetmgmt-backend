@@ -26,7 +26,7 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpGet]
         [Route("getalltripsfordriver/{id}")]
-        public async Task<IActionResult> GetAllTripsForDriver(Guid id)
+        public async Task<IActionResult> GetAllTripsForDriver(string id)
         {
             var trips = await _tripRepository.GetAllTripsForDriver(id);
 
@@ -36,7 +36,7 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpGet]
         [Route("getalltripsforvehicle/{id}")]
-        public async Task<IActionResult> GetAllTripsForVehicle(Guid id)
+        public async Task<IActionResult> GetAllTripsForVehicle(string id)
         {
             var trips = await _tripRepository.GetAllTripsForVehicle(id);
 
@@ -46,7 +46,7 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpGet]
         [Route("gettripbyid/{id}")]
-        public async Task<IActionResult> GetTripById(Guid id)
+        public async Task<IActionResult> GetTripById(string id)
         {
             var trips = await _tripRepository.GetTripById(id);
 
@@ -67,7 +67,7 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpPut]
         [Route("updatetrip/{id}")]
-        public async Task<IActionResult> UpdateTrip(Guid id, [FromBody]TripDto trip)
+        public async Task<IActionResult> UpdateTrip(string id, [FromBody]TripDto trip)
         {
             var updatedTrip = _mapper.Map<Trip>(trip);
 
@@ -77,7 +77,7 @@ namespace FleetMgmt.Web.Controllers
 
         [HttpDelete]
         [Route("deletetrip/{id}")]
-        public async Task<IActionResult> DeleteTrip(Guid id)
+        public async Task<IActionResult> DeleteTrip(string id)
         {
             return Ok(await _tripRepository.RemoveTrip(id));
         }

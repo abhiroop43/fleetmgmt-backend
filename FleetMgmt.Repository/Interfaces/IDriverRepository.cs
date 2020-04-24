@@ -9,21 +9,21 @@ namespace FleetMgmt.Repository.Interfaces
     {
         Task<int> AddDriver(Driver newDriver);
 
-        Task<int> UpdateDriver(Guid driverId, Driver updatedDriverInfo);
+        Task<int> UpdateDriver(string driverId, Driver updatedDriverInfo);
 
-        Task<int> RemoveDriver(Guid driverId);
+        Task<int> RemoveDriver(string driverId);
 
         Task<List<Driver>> GetAllDrivers();
 
-        Task<Driver> GetDriverById(Guid driverId);
+        Task<Driver> GetDriverById(string driverId);
 
-        Task<decimal?> GetTotalFinesOfDriver(Guid driverId);
+        Task<decimal?> GetTotalFinesOfDriver(string driverId);
 
-        Task<List<Vehicle>> GetAllVehiclesDrivenByDriver(Guid driverId);
+        Task<List<Vehicle>> GetAllVehiclesDrivenByDriver(string driverId);
 
-        Task<List<Accident>> GetAllAccidentsByDriver(Guid driverId);
+        Task<List<Accident>> GetAllAccidentsByDriver(string driverId);
 
         [Obsolete]
-        Task<List<Trip>> GetAllTripsByDriver(Guid driverId);
+        Task<List<Trip>> GetAllTripsByDriver(string driverId);
     }
 }
