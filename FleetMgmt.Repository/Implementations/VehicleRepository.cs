@@ -13,16 +13,27 @@ namespace FleetMgmt.Repository.Implementations
     public class VehicleRepository : IVehicleRepository
     {
         private readonly FmDbContext _dbContext;
-        public VehicleRepository(FmDbContext dbContext)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserSession _userSession;
+
+        public VehicleRepository(FmDbContext dbContext, IUnitOfWork unitOfWork, IUserSession userSession)
         {
             _dbContext = dbContext;
+            _unitOfWork = unitOfWork;
+            _userSession = userSession;
         }
+
         public async Task<ServiceResponse> AddVehicle(Vehicle newVehicle)
         {
             ServiceResponse response = null;
             newVehicle.Id = Guid.NewGuid().ToString();
+            newVehicle.CreatedDate = DateTime.Now;
+            newVehicle.CreatedBy = _userSession.GetUser()?.Name;
+
             await _dbContext.Vehicles.AddAsync(newVehicle);
-            var savedRecords =  await SaveChanges();
+            _unitOfWork.SetIsActive(true);
+            
+            var savedRecords =  await _unitOfWork.SaveAsync();
 
             if (savedRecords > 0)
             {
@@ -66,8 +77,9 @@ namespace FleetMgmt.Repository.Implementations
             return vehicle;
         }
 
-        public async Task<int> RemoveVehicle(string vehicleId)
+        public async Task<ServiceResponse> RemoveVehicle(string vehicleId)
         {
+            ServiceResponse response = null;
             var vehicle = await _dbContext.Vehicles.FindAsync(vehicleId);
 
             if (vehicle == null)
@@ -76,13 +88,38 @@ namespace FleetMgmt.Repository.Implementations
             }
 
             vehicle.IsActive = false;
+            vehicle.UpdatedDate = DateTime.Now;
+            vehicle.UpdatedBy = _userSession.GetUser()?.Name;
 
             _dbContext.Entry(vehicle).State = EntityState.Modified;
-            return await SaveChanges();
+            _unitOfWork.SetIsActive(true);
+            var affectedRows =  await _unitOfWork.SaveAsync();
+
+            if (affectedRows > 0)
+            {
+                response = new ServiceResponse
+                {
+                    Success = true,
+                    Message = "Vehicle Deleted successfully"
+                };
+            }
+            else
+            {
+                response  = new ServiceResponse
+                {
+                    Success = false,
+                    Message = "Failed to delete vehicle"
+                };
+            }
+
+            return response;
+            // return await SaveChanges();
         }
 
-        public async Task<int> UpdateVehicle(string vehicleId, Vehicle updatedVehicleInfo)
+        public async Task<ServiceResponse> UpdateVehicle(string vehicleId, Vehicle updatedVehicleInfo)
         {
+            ServiceResponse response = null;
+
             var vehicle = await _dbContext.Vehicles.FindAsync(vehicleId);
 
             if (vehicle == null)
@@ -96,9 +133,33 @@ namespace FleetMgmt.Repository.Implementations
             vehicle.PlateNumber = updatedVehicleInfo.PlateNumber;
             vehicle.Make = updatedVehicleInfo.Make;
             vehicle.Model = updatedVehicleInfo.Model;
+            vehicle.UpdatedDate = DateTime.Now;
+            vehicle.UpdatedBy = _userSession.GetUser()?.Name;
 
             _dbContext.Entry(vehicle).State = EntityState.Modified;
-            return await SaveChanges();
+            _unitOfWork.SetIsActive(true);
+            var affectedRows = await _unitOfWork.SaveAsync();
+
+            if (affectedRows > 0)
+            {
+                response = new ServiceResponse
+                {
+                    Success = true,
+                    Message = "Vehicle Updated successfully"
+                };
+            }
+            else
+            {
+                response  = new ServiceResponse
+                {
+                    Success = false,
+                    Message = "Failed to update vehicle"
+                };
+            }
+
+            return response;
+
+            // return await SaveChanges();
         }
 
         private async Task<int> SaveChanges()

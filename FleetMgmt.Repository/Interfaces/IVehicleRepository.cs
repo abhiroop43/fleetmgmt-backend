@@ -10,9 +10,9 @@ namespace FleetMgmt.Repository.Interfaces
     {
         Task<ServiceResponse> AddVehicle(Vehicle newVehicle);
 
-        Task<int> UpdateVehicle(string vehicleId, Vehicle updatedVehicleInfo);
+        Task<ServiceResponse> UpdateVehicle(string vehicleId, Vehicle updatedVehicleInfo);
 
-        Task<int> RemoveVehicle(string vehicleId);
+        Task<ServiceResponse> RemoveVehicle(string vehicleId);
 
         Task<List<Vehicle>> GetAllVehicles();
 

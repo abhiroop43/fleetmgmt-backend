@@ -5,6 +5,7 @@ using FleetMgmt.Repository.Implementations;
 using FleetMgmt.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,11 +49,13 @@ namespace FleetMgmt.Web
                 .AddNewtonsoftJson();
 
             services
-                .AddTransient<IVehicleRepository, VehicleRepository>()
-                .AddTransient<IDriverRepository, DriverRepository>()
-                .AddTransient<ITripRepository, TripRepository>()
-                .AddTransient<IAccidentRepository, AccidentRepository>()
-                .AddTransient<IUnitOfWork, UnitOfWork>();
+                .AddScoped<IVehicleRepository, VehicleRepository>()
+                .AddScoped<IDriverRepository, DriverRepository>()
+                .AddScoped<ITripRepository, TripRepository>()
+                .AddScoped<IAccidentRepository, AccidentRepository>()
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped<IUserSession, UserSession>()
+                .AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
