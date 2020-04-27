@@ -6,11 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.24" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FleetMgmt.Data\FleetMgmt.Data.csproj" />
+    <ProjectReference Include="..\FleetMgmt.Domain\FleetMgmt.Domain.csproj" />
     <ProjectReference Include="..\FleetMgmt.Dto\FleetMgmt.Dto.csproj" />
   </ItemGroup>
 

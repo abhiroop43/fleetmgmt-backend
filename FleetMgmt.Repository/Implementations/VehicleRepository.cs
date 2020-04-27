@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 using FleetMgmt.Data;
 using FleetMgmt.Data.Entities;
+using FleetMgmt.Domain;
 using FleetMgmt.Dto;
 using FleetMgmt.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace FleetMgmt.Repository.Implementations
 {
@@ -15,12 +19,14 @@ namespace FleetMgmt.Repository.Implementations
         private readonly FmDbContext _dbContext;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserSession _userSession;
+        private readonly IMapper _mapper;
 
-        public VehicleRepository(FmDbContext dbContext, IUnitOfWork unitOfWork, IUserSession userSession)
+        public VehicleRepository(FmDbContext dbContext, IUnitOfWork unitOfWork, IUserSession userSession, IMapper mapper)
         {
             _dbContext = dbContext;
             _unitOfWork = unitOfWork;
             _userSession = userSession;
+            _mapper = mapper;
         }
 
         public async Task<ServiceResponse> AddVehicle(Vehicle newVehicle)
@@ -60,23 +66,53 @@ namespace FleetMgmt.Repository.Implementations
             return await _dbContext.Accidents.Where(a => a.Trip.VehicleId == vehicleId).ToListAsync();
         }
 
-        public async Task<List<Vehicle>> GetAllVehicles(SearchInputDto searchInput)
+        public async Task<ServiceResponse> GetAllVehicles(SearchInputDto searchInput)
         {
-            IQueryable<Vehicle> vehicles = _dbContext.Vehicles.Where(v => v.IsActive);
-
-            // TODO: filter with inputs passed //
+            Expression<Func<Vehicle, bool>> expression = x => x.IsActive;
+            string dynamicQuery = string.Empty;
             if (searchInput.Filters != null && searchInput.Filters.Any())
             {
-                foreach (var filter in searchInput.Filters)
+                dynamicQuery = Helper.QueryMapper(searchInput.Filters, "VehicleSearch.json");
+
+                if (!string.IsNullOrEmpty(dynamicQuery))
                 {
-                    
+                    Expression<Func<Vehicle, bool>> query = DynamicExpressionParser.ParseLambda<Vehicle, bool>(new ParsingConfig(), false, dynamicQuery);
+                    expression = DynamicExpressionParser.ParseLambda<Vehicle, bool>(new ParsingConfig(), false, "@0(it) and @1(it)", expression, query);
                 }
             }
 
-            // TODO: Create response with paged data //
+            IQueryable<Vehicle> vehicles = _dbContext.Vehicles.Where(expression);
 
-            return await vehicles
+            var vehiclesForTotalCount = vehicles;
+            int totalCount = await vehiclesForTotalCount.CountAsync();
+
+            var searchedVehicles = await  vehicles
                 .Skip(searchInput.PageSize * (searchInput.PageNumber - 1)).Take(searchInput.PageSize).ToListAsync();
+
+            var mappedVehicles = _mapper.Map<List<VehicleDto>>(searchedVehicles);
+
+            var pageDetails =
+                new PagedData<Vehicle>().GetPaginationDetails<Vehicle>(searchInput.PageNumber, searchInput.PageSize,
+                    totalCount);
+
+            var tempPageData = new PagedData<VehicleDto>()
+            {
+                Data = mappedVehicles,
+                HasNextPage = pageDetails.HasNextPage,
+                HasPreviousPage = pageDetails.HasPreviousPage,
+                IsFirstPage = pageDetails.IsFirstPage,
+                IsLastPage = pageDetails.IsLastPage,
+                ItemEnd = pageDetails.ItemEnd,
+                ItemStart = pageDetails.ItemStart,
+                PageCount = pageDetails.PageCount,
+                PageIndex = pageDetails.PageIndex,
+                PageSize = pageDetails.PageSize,
+                TotalItemCount = pageDetails.TotalItemCount
+            };
+            var response = new ServiceResponse {Data = tempPageData, Success = true};
+            response.Message = response.Success ? "Vehicles list successfully loaded..." : "No vehicle data found..";
+
+            return response;
         }
 
         public async Task<Vehicle> GetVehicleById(string vehicleId)

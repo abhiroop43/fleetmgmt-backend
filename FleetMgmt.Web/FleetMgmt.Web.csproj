@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FleetMgmt.Data\FleetMgmt.Data.csproj" />
+    <ProjectReference Include="..\FleetMgmt.Domain\FleetMgmt.Domain.csproj" />
     <ProjectReference Include="..\FleetMgmt.Dto\FleetMgmt.Dto.csproj" />
     <ProjectReference Include="..\FleetMgmt.Repository\FleetMgmt.Repository.csproj" />
   </ItemGroup>

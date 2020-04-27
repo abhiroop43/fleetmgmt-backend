@@ -5,7 +5,7 @@ namespace FleetMgmt.Dto
 {
     public class VehicleDto
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(255)]
@@ -31,5 +31,10 @@ namespace FleetMgmt.Dto
         public bool IsActive { get; set; } = true;
 
         public long? KilometersDriven { get; set; }
+
+        public string CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
     }
 }

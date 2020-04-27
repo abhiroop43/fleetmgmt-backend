@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using FleetMgmt.Data;
+using FleetMgmt.Domain;
 using FleetMgmt.Repository.Implementations;
 using FleetMgmt.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -43,7 +44,7 @@ namespace FleetMgmt.Web
                        .GetConnectionString("DefaultConnection")));
             
             services
-                .AddAutoMapper(typeof(Startup))
+                .AddAutoMapper(typeof(Mappings))
                 .AddMvcCore()
                 .AddAuthorization()
                 .AddNewtonsoftJson();

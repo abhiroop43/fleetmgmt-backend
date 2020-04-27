@@ -8,6 +8,6 @@ namespace FleetMgmt.Dto
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 15;
-        public List<KeyValuePair<string, dynamic>> Filters { get; set; }
+        public List<KeyValuePair<string, string>> Filters { get; set; }
     }
 }
