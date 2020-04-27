@@ -1,5 +1,7 @@
 # Fleet Management System Backend
 
+![Fleet Management API](https://github.com/abhiroop43/fleetmgmt-backend/workflows/Fleet%20Management%20API/badge.svg)
+
 Backend Web API for the Fleet Management System.
 
 Uses **ASP.NET Core v3** and **IdentityServer4** for authentication.
