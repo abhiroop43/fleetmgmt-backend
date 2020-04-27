@@ -60,9 +60,23 @@ namespace FleetMgmt.Repository.Implementations
             return await _dbContext.Accidents.Where(a => a.Trip.VehicleId == vehicleId).ToListAsync();
         }
 
-        public async Task<List<Vehicle>> GetAllVehicles()
+        public async Task<List<Vehicle>> GetAllVehicles(SearchInputDto searchInput)
         {
-            return await _dbContext.Vehicles.Where(v => v.IsActive).ToListAsync();
+            IQueryable<Vehicle> vehicles = _dbContext.Vehicles.Where(v => v.IsActive);
+
+            // TODO: filter with inputs passed //
+            if (searchInput.Filters != null && searchInput.Filters.Any())
+            {
+                foreach (var filter in searchInput.Filters)
+                {
+                    
+                }
+            }
+
+            // TODO: Create response with paged data //
+
+            return await vehicles
+                .Skip(searchInput.PageSize * (searchInput.PageNumber - 1)).Take(searchInput.PageSize).ToListAsync();
         }
 
         public async Task<Vehicle> GetVehicleById(string vehicleId)

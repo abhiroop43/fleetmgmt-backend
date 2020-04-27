@@ -14,7 +14,7 @@ namespace FleetMgmt.Repository.Interfaces
 
         Task<ServiceResponse> RemoveVehicle(string vehicleId);
 
-        Task<List<Vehicle>> GetAllVehicles();
+        Task<List<Vehicle>> GetAllVehicles(SearchInputDto searchInput);
 
         Task<Vehicle> GetVehicleById(string vehicleId);
         Task<List<Accident>> GetAllAccidentsForVehicle(string vehicleId);

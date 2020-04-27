@@ -24,11 +24,11 @@ namespace FleetMgmt.Web.Controllers
             _vehicleRepository = vehicleRepository;
         }
         
-        [HttpGet]
+        [HttpPost]
         [Route("getallvehicles")]
-        public async Task<ActionResult> GetAllVehicles()
+        public async Task<ActionResult> GetAllVehicles(SearchInputDto searchInput)
         {
-            var vehicles = await _vehicleRepository.GetAllVehicles();
+            var vehicles = await _vehicleRepository.GetAllVehicles(searchInput);
 
             var retVal = _mapper.Map<List<VehicleDto>>(vehicles);
 
