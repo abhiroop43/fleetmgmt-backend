@@ -17,9 +17,36 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+        
+    - name: Install dependencies FleetMgmt.Data
+      run: dotnet restore FleetMgmt.Data
+    - name: Install dependencies FleetMgmt.Dto
+      run: dotnet restore FleetMgmt.Dto
+    - name: Install dependencies FleetMgmt.Domain
+      run: dotnet restore FleetMgmt.Domain
+    - name: Install dependencies FleetMgmt.Repository
+      run: dotnet restore FleetMgmt.Repository
+    - name: Install dependencies FleetMgmt.IdentityServer
+      run: dotnet restore FleetMgmt.IdentityServer
+    - name: Install dependencies FleetMgmt.Web
+      run: dotnet restore FleetMgmt.Web
+    - name: Install dependencies FleetMgmt.Test
+      run: dotnet restore FleetMgmt.Test
+      
+    - name: Build FleetMgmt.Data
+      run: dotnet build FleetMgmt.Data --configuration Release --no-restore
+    - name: Build FleetMgmt.Dto
+      run: dotnet build FleetMgmt.Dto --configuration Release --no-restore
+    - name: Build FleetMgmt.Domain
+      run: dotnet build FleetMgmt.Domain --configuration Release --no-restore
+    - name: Build FleetMgmt.Repository
+      run: dotnet build FleetMgmt.Repository --configuration Release --no-restore
+    - name: Build FleetMgmt.IdentityServer
+      run: dotnet build FleetMgmt.IdentityServer --configuration Release --no-restore
+    - name: Build FleetMgmt.Web
+      run: dotnet build FleetMgmt.Web --configuration Release --no-restore
+    - name: Build FleetMgmt.Test
+      run: dotnet build FleetMgmt.Test --configuration Release --no-restore
+      
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test FleetMgmt.Test --no-restore --verbosity normal
