@@ -30,9 +30,7 @@ namespace FleetMgmt.Web.Controllers
         {
             var vehicles = await _vehicleRepository.GetAllVehicles(searchInput);
 
-            var retVal = _mapper.Map<List<VehicleDto>>(vehicles);
-
-            return Ok(retVal);
+            return Ok(vehicles);
         }
         
         [HttpGet]
@@ -41,24 +39,21 @@ namespace FleetMgmt.Web.Controllers
         {
             var vehicle = await _vehicleRepository.GetVehicleById(id);
 
-            return Ok(_mapper.Map<VehicleDto>(vehicle));
+            return Ok(vehicle);
         }
 
         [HttpPost]
         [Route("addnewvehicle")]
-        public async Task<ActionResult> AddNewVehicle([FromBody] VehicleDto newvehicle)
+        public async Task<ActionResult> AddNewVehicle([FromBody] VehicleDto newVehicle)
         {
-            var vehicle = _mapper.Map<Vehicle>(newvehicle);
-            return Ok(await _vehicleRepository.AddVehicle(vehicle));
+            return Ok(await _vehicleRepository.AddVehicle(newVehicle));
         }
 
         [HttpPut]
         [Route("updatevehicle/{id}")]
         public async Task<ActionResult> UpdateVehicle(string id, [FromBody] VehicleDto updatedVehicleInfo)
         {
-            var vehicle = _mapper.Map<Vehicle>(updatedVehicleInfo);
-
-            return Ok(await _vehicleRepository.UpdateVehicle(id, vehicle));
+            return Ok(await _vehicleRepository.UpdateVehicle(id, updatedVehicleInfo));
         }
 
         [HttpDelete]

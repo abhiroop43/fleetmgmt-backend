@@ -29,14 +29,16 @@ namespace FleetMgmt.Repository.Implementations
             _mapper = mapper;
         }
 
-        public async Task<ServiceResponse> AddVehicle(Vehicle newVehicle)
+        public async Task<ServiceResponse> AddVehicle(VehicleDto newVehicle)
         {
-            ServiceResponse response = null;
-            newVehicle.Id = Guid.NewGuid().ToString();
-            newVehicle.CreatedDate = DateTime.Now;
-            newVehicle.CreatedBy = _userSession.GetUser()?.Name;
+            var vehicle = _mapper.Map<Vehicle>(newVehicle);
 
-            await _dbContext.Vehicles.AddAsync(newVehicle);
+            ServiceResponse response = null;
+            vehicle.Id = Guid.NewGuid().ToString();
+            vehicle.CreatedDate = DateTime.Now;
+            vehicle.CreatedBy = _userSession.GetUser()?.Name;
+
+            await _dbContext.Vehicles.AddAsync(vehicle);
             _unitOfWork.SetIsActive(true);
             
             var savedRecords =  await _unitOfWork.SaveAsync();
@@ -69,10 +71,9 @@ namespace FleetMgmt.Repository.Implementations
         public async Task<ServiceResponse> GetAllVehicles(SearchInputDto searchInput)
         {
             Expression<Func<Vehicle, bool>> expression = x => x.IsActive;
-            string dynamicQuery = string.Empty;
             if (searchInput.Filters != null && searchInput.Filters.Any())
             {
-                dynamicQuery = Helper.QueryMapper(searchInput.Filters, "VehicleSearch.json");
+                var dynamicQuery = Helper.QueryMapper(searchInput.Filters, "VehicleSearch.json");
 
                 if (!string.IsNullOrEmpty(dynamicQuery))
                 {
@@ -127,6 +128,27 @@ namespace FleetMgmt.Repository.Implementations
             return vehicle;
         }
 
+        public async Task<ServiceResponse> GetVehicleByIdReadOnly(string vehicleId)
+        {
+            var response = new ServiceResponse();
+            var vehicle = await _dbContext.Vehicles.FindAsync(vehicleId);
+
+            if (vehicle == null)
+            {
+                throw new Exception("No vehicle with the given Id was found");
+            }
+
+            _dbContext.Entry(vehicle).State = EntityState.Detached;
+
+            var vehicleDto = _mapper.Map<VehicleDto>(vehicle);
+
+            response.Message = "Vehicle details loaded successfully";
+            response.Data = vehicleDto;
+            response.Success = true;
+
+            return response;
+        }
+
         public async Task<ServiceResponse> RemoveVehicle(string vehicleId)
         {
             ServiceResponse response = null;
@@ -166,9 +188,11 @@ namespace FleetMgmt.Repository.Implementations
             // return await SaveChanges();
         }
 
-        public async Task<ServiceResponse> UpdateVehicle(string vehicleId, Vehicle updatedVehicleInfo)
+        public async Task<ServiceResponse> UpdateVehicle(string vehicleId, VehicleDto updatedVehicleInfo)
         {
             ServiceResponse response = null;
+
+            // var existingVehicle = _mapper.Map<Vehicle>(updatedVehicleInfo);
 
             var vehicle = await _dbContext.Vehicles.FindAsync(vehicleId);
 
