@@ -12,5 +12,6 @@ namespace FleetMgmt.Repository.Interfaces
         void Rollback();
         int Save();
         Task<int> SaveAsync();
+        Task<int> CommitAsync();
     }
 }

@@ -41,7 +41,7 @@ namespace FleetMgmt.Repository.Implementations
             await _dbContext.Vehicles.AddAsync(vehicle);
             _unitOfWork.SetIsActive(true);
             
-            var savedRecords =  await _unitOfWork.SaveAsync();
+            var savedRecords =  await _unitOfWork.CommitAsync();
 
             if (savedRecords > 0)
             {
@@ -165,7 +165,7 @@ namespace FleetMgmt.Repository.Implementations
 
             _dbContext.Entry(vehicle).State = EntityState.Modified;
             _unitOfWork.SetIsActive(true);
-            var affectedRows =  await _unitOfWork.SaveAsync();
+            var affectedRows =  await _unitOfWork.CommitAsync();
 
             if (affectedRows > 0)
             {
@@ -212,7 +212,7 @@ namespace FleetMgmt.Repository.Implementations
 
             _dbContext.Entry(vehicle).State = EntityState.Modified;
             _unitOfWork.SetIsActive(true);
-            var affectedRows = await _unitOfWork.SaveAsync();
+            var affectedRows = await _unitOfWork.CommitAsync();
 
             if (affectedRows > 0)
             {
