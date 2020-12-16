@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.Test", "FleetMgmt
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E99AC165-1C19-4894-B552-9A5B9EFAB5B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetMgmt.Domain", "FleetMgmt.Domain\FleetMgmt.Domain.csproj", "{89E213BA-3983-4BEC-A478-5C267469998F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMgmt.Domain", "FleetMgmt.Domain\FleetMgmt.Domain.csproj", "{89E213BA-3983-4BEC-A478-5C267469998F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,7 +28,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1FDE29CD-E7AF-44FD-82A5-D22C1238E16A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FDE29CD-E7AF-44FD-82A5-D22C1238E16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FDE29CD-E7AF-44FD-82A5-D22C1238E16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FDE29CD-E7AF-44FD-82A5-D22C1238E16A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3313F129-047D-4694-825F-72702D9AAE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -56,7 +55,6 @@ Global
 		{2356F508-82AC-4595-8F27-6A6D6599169F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2356F508-82AC-4595-8F27-6A6D6599169F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E99AC165-1C19-4894-B552-9A5B9EFAB5B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E99AC165-1C19-4894-B552-9A5B9EFAB5B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E99AC165-1C19-4894-B552-9A5B9EFAB5B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E99AC165-1C19-4894-B552-9A5B9EFAB5B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89E213BA-3983-4BEC-A478-5C267469998F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
